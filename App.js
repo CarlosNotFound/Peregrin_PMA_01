@@ -30,5 +30,10 @@ const styles = StyleSheet.create({
   },
   input: { borderWidth: 3, borderColor: "#FFFFFF", borderRadius: 8},
 
+  flatList: {
+    flex: 1,
+    marginTop: 20,
+  },
+  
 });
 
