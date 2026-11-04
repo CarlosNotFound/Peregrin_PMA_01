@@ -1,39 +1,46 @@
-import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, View } from 'react-native';
+let hodnota = 0;
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <View style={styles.inputContainer}>
-      <TextInput style={styles.input} placeholder="Zadaj ulohu...." /> 
-      <Button title="ADD"/>
-      </View>
-      <Text>:::::UDALOSTI:::::</Text>
-      <StatusBar style="auto" />
+const hodnotaEl = document.getElementById('hodnota');
+const btnMinus = document.getElementById('btnMinus');
+const limitText = document.getElementById('limitText');
 
+function aktualizujUI() {
+    // 1. Zobrazenie aktuálnej hodnoty
+    hodnotaEl.textContent = hodnota;
 
-      
-    </View>
-  );
+    // 4. Ak je hodnota 5 a viac, číslo sčervenie a zobrazí sa text limitu
+    if (hodnota >= 5) {
+        hodnotaEl.classList.add('red');
+        limitText.style.display = 'block';
+    } else {
+        hodnotaEl.classList.remove('red');
+        limitText.style.display = 'none';
+    }
+
+    // 5. Ak je hodnota 0, tlačidlo - je neaktívne (disabled)
+    if (hodnota === 0) {
+        btnMinus.disabled = true;
+        btnMinus.style.opacity = 0.5;
+    } else {
+        btnMinus.disabled = false;
+        btnMinus.style.opacity = 1;
+    }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    margin: 10,
-  },
-  input: { borderWidth: 3, borderColor: "#FFFFFF", borderRadius: 8},
+function zmenHodnotu(cislo) {
+    // 2. Podmienka, aby hodnota nikdy nešla pod 0
+    if (hodnota + cislo >= 0) {
+        hodnota += cislo;
+        aktualizujUI();
+    }
+}
 
-  flatList: {
-    flex: 1,
-    marginTop: 20,
-  },
-  
-});
+function vynuluj() {
+    // 3. Tlačidlo vynulovať
+    hodnota = 0;
+    aktualizujUI();
+}
+
+// Inicializácia pri štarte
+aktualizujUI();
 
